@@ -15,23 +15,24 @@
     <link rel="manifest" href="favicon/site.webmanifest">
   </head>
   <body>
-    <h1>FisBus</h1>
-    <h2>Spraak output</h2>
-    <p>Speler: </p>
-    
+    <h1>FisBus</h1>    
     <form id="formulier">
-    <input type="waarde" class="huidigeWaarde" value="Hallo, Joris!">
-    <div class="controls">
-      <button id="play" type="submit">Play</button>
-    </div>
+      <label for="naam">Hoe heet je?</label>
+      <input type="naam" id="naam" value="Henk">
+      <div>Huidige ronde: <span id="huidigeRonde">1</span></div>
+      <div>Aan de beurt: <span id="aanDeBeurt"></span></div>
+      <div>Aantal fouten: <span id="aantalFouten">0</span></div>
+      <div>Laatst gezegd: <span id="spreek">0</span></div>
+      <button id="play" type="submit">Start</button>
+      <button id="reset">Reset</button>
     </form>
-x
+
     <h2>Spraak input</h2>
-    <p class="hints"></p>
+    <p id="hints"></p>
     <div>
         <p id="output"><em>...diagnostische berichten</em></p>
         <p id="luisterStatus"><em>Ik luister niet</em></p>
     </div>
-    <script src="fisbus.js"></script>
+    <script src="visbus.js"></script>
   </body>
 </html>
