@@ -26,6 +26,21 @@ Bus: <https://www.eichertrucksandbuses.com/buses/school-bus/starline>
 Vis: <https://poki.nl/g/fish-eat-fish>
 
 Wie het woord fout zegt moet een drankje drinken. Waardoor je natuurlijk steeds meer fouten gaat maken.
+
+Start een server op localhost om de SpeechRecognition het te laten doen, met bijvoorbeeld npm package `http-server`(de `-c-1` parameter is om caching uit te zetten (maar je moet vaak nog steeds ctrl+F5 gebruiken)):
+
+```bash
+npx http-server -c-1 .
+```
+
+### TODO
+
+- Computer ook fouten laten maken (geen bugs, maar in fizzbuzz woorden :)
+- Netjes aankondigen en toelichten dat toestemming
+- Fatsoenlijk scherm lay-out
+- Naar Angular of React voor data binding
+- Back-end server gebruiken
+
 ## Speech color changer demo
 
 [Run recognition demo live](https://mdn.github.io/web-speech-api/speech-color-changer/)

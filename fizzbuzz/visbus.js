@@ -179,7 +179,7 @@ const luister = () => {
   console.log('Klaar om een woord te horen')
 }
 
-const aanheffen = ["Ei.", "Oeps", "Whoopsie", "Humm", "Nee nee", "Fout!"]
+const aanheffen = ["Ei", "Oeps", "Whoopsie", "Humm", "Nee nee", "Fout!"]
 
 // Bron: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript#answer-7228322
 const randomIntFromInterval = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
@@ -214,7 +214,7 @@ recognition.onresult = event => {
       const randomInt = randomIntFromInterval(0, 5)
       let randomAanhef = aanheffen[randomInt]
       let foutOfFouten = aantalFouten===1 ? "fout" : "fouten"
-      gebruikersMelding = randomAanhef + " Je hebt nu " + aantalFouten + " " + foutOfFouten + ". Het moest niet" + gevondenWaarde + ", maar " + correcteFizzBuzzWaarde + " zijn."
+      gebruikersMelding = randomAanhef + ". Je hebt nu " + aantalFouten + " " + foutOfFouten + ". Het moest niet" + gevondenWaarde + ", maar " + correcteFizzBuzzWaarde + " zijn."
     }
     spreek(gebruikersMelding)
     setTimeout(() => {
