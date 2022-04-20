@@ -1,7 +1,3 @@
-let huidigeRonde = 1;
-let aantalFouten = 0;
-let isComputerAanDeBeurt = false;
-
 let inputForm = document.querySelector('#formulier')
 let naamVeld = document.getElementById('naam')
 let huidigeRondeVeld = document.getElementById('huidigeRonde')
@@ -10,16 +6,21 @@ let aantalFoutenVeld = document.getElementById('aantalFouten')
 let spreekVeld = document.getElementById('spreek')
 let resetButton = document.getElementById('reset')
 
-let synth = window.speechSynthesis
+let huidigeRonde
+let aantalFouten
+let isComputerAanDeBeurt
 
 const spreek = (input, callbackOnEnd) => {
-  if (!input || input !== '') {
+  if (!input || input === '') {
     console.log('Error! Poging lege tekst uit te spreken')
   }
   console.log("Spreek: " + input)
   spreekVeld.textContent = input
   let inputUtterance = new SpeechSynthesisUtterance(input)
-  let dutchVoice = synth.getVoices().find(voice => voice.lang==='nl-NL')
+
+  // TODO: Declaratie van dutchVoice eenmalig doen (maar dit werkt niet vanuit globale scope)
+  synth = window.speechSynthesis
+  const dutchVoice = synth.getVoices().find(voice => voice.lang==='nl-NL')
   inputUtterance.voice = dutchVoice
   inputUtterance.onend = function() {
     console.log('SpeechSynthesisUtterance.onend')
@@ -42,26 +43,30 @@ const spreekEnLuister = tekst => {
 }
 
 const updateSchermWaarden = () => {
-  huidigeRondeVeld.textContent = huidigeRonde;
+  huidigeRondeVeld.textContent = huidigeRonde
   aanDeBeurtVeld.textContent = isComputerAanDeBeurt ? 'Computer' : naamVeld.value
   aantalFoutenVeld.textContent = aantalFouten
 }
 
 function resetSpel() {
-  huidigeRonde = 1;
-  aantalFouten = 0;
-  isComputerAanDeBeurt = false;
-  naamVeld.disabled = false;
+  huidigeRonde = 1
+  aantalFouten = 0
+  isComputerAanDeBeurt = false
+  naamVeld.disabled = false
   
-  // Zet naamveld initieel default op 'Speler 1' of evt. een uit de URL geladen waarde.
+  // Zet naamveld initieel default op 'Speler 1' of een uit de URL geladen waarde als die er staat.
   let url = new URLSearchParams(document.location.search)
   naamVeld.value = url.get('naam') || 'Speler 1'
   updateSchermWaarden()
   let tekst = "Hallo. Tik je naam in en druk start om te spelen"
   spreek(tekst)
+  // setTimeout(() => spreek(tekst), 1000)
 }
 
-resetSpel()
+// Bron: https://developer.mozilla.org/en-US/docs/web/api/document/readystatechange_event
+document.addEventListener('DOMContentLoaded', (event) => {
+  setTimeout(() => resetSpel(), 1000)
+})
 
 resetButton.onclick = () => {
   spreek("Ik reset het spel", resetSpel)
@@ -69,8 +74,8 @@ resetButton.onclick = () => {
 
 // Bron: https://stackoverflow.com/questions/24281937/update-parameters-in-url-with-history-pushstate#answer-41505583
 const setQueryStringParameter = (name, value) => {
-  const params = new URLSearchParams(window.location.search);
-  params.set(name, value);
+  const params = new URLSearchParams(window.location.search)
+  params.set(name, value)
   window.history.replaceState({}, "", decodeURIComponent(`${window.location.pathname}?${params}`));
 }
 
@@ -91,9 +96,9 @@ let fizzBuzzWoorden = [
     // { waarde: "crimson", naam: "karmozijnrood"},
     // { waarde: "indigo", naam: "indigo"},
     // { waarde: "white", naam: "wit"},
-    { waarde: "vis", naam: "fizz"},
-    { waarde: "bus", naam: "buzz"},
-    { waarde: "visbus", naam: "fizzbuzz"},
+    { waarde: "vis", naam: "vis"},
+    { waarde: "bus", naam: "bus"},
+    { waarde: "visbeurs", naam: "visbeurs"},
     { waarde: "1", naam: "een"},
     { waarde: "2", naam: "twee"},
     { waarde: "3", naam: "drie"},
@@ -113,10 +118,18 @@ let fizzBuzzWoorden = [
     { waarde: "17", naam: "zeventien"},
     { waarde: "18", naam: "achttien"},
     { waarde: "19", naam: "negentien"},
-    { waarde: "20", naam: "twintig"}
+    { waarde: "20", naam: "twintig"},
+    { waarde: "15"},
+    { waarde: "16"},
+    { waarde: "17"},
   ]
 
-let fizzBuzzWaarden = fizzBuzzWoorden.map(k => k.waarde)
+const max = 100
+for(let getal=18; getal<=max; getal++) {
+  fizzBuzzWoorden.push({ "waarde" : getal})
+}
+let fizzBuzzWaarden = fizzBuzzWoorden.map(w => w.waarde)
+
 let grammar = '#JSGF V1.0; grammar fizbuzz; public <fizzbuzzvalues> = ' + fizzBuzzWaarden.join(' | ') + ';'
 
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
@@ -152,7 +165,7 @@ const isIllegal = fizzBuzzValue => {
   return intWaarde%3===0 || intWaarde%5===0
 }
 
-const fizzbuzz = waarde => {
+function fizzbuzz() {
   if (waarde%15===0) {
     return "visbus"
   }
@@ -169,7 +182,7 @@ var woordenHTML=''
 fizzBuzzWoorden.forEach(function(woord, index) {
   console.log(woord, index)
   const signaalKleur = isIllegal(woord.waarde) ? 'red' : 'green'
-  woordenHTML += '<span style="background-color:' + signaalKleur + ';"> ' + woord.naam + ' </span>'
+  woordenHTML += '<div style="color: white; font-weight: bold; background-color:' + signaalKleur + ';"> ' + (woord.naam ? woord.naam : woord.waarde) + ' </div>'
 })
 hints.innerHTML = 'Klik en zeg een fizzbuzz woord: ' + woordenHTML + '.'
 
@@ -179,7 +192,7 @@ const luister = () => {
   console.log('Klaar om een woord te horen')
 }
 
-const aanheffen = ["Ei", "Oeps", "Whoopsie", "Humm", "Nee nee", "Fout!"]
+const aanheffen = ["Ei", "Oeps", "Woepsie", "Humm", "Nee nee", "Fout!"]
 
 // Bron: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript#answer-7228322
 const randomIntFromInterval = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
@@ -195,7 +208,17 @@ recognition.onresult = event => {
   // We then return the transcript property of the SpeechRecognitionAlternative object
   var gehoordeWoord = event.results[0][0].transcript
   diagnostic.textContent = 'Gehoorde woord: ' + gehoordeWoord
-  let gevondenWoord = fizzBuzzWoorden.find(w => w.waarde.toLowerCase() === gehoordeWoord.toLowerCase());
+
+  // TODO Typescript invoeren om dit soort nasty bugs te voorkomen
+  let gevondenWoord = fizzBuzzWoorden.find(woord => {
+    if (typeof woord.waarde === 'string') {
+      return woord.waarde.toLowerCase() === gehoordeWoord.toLowerCase()
+    }
+    if (typeof woord.waarde === 'number') {
+      return woord.waarde === gehoordeWoord
+    }
+  });
+
   console.log('Vertrouwen: ' + event.results[0][0].confidence)
   if (!gevondenWoord) {
     diagnostic.textContent += " (geen FizzBuzz waarde bij gevonden)"
@@ -214,22 +237,22 @@ recognition.onresult = event => {
       const randomInt = randomIntFromInterval(0, 5)
       let randomAanhef = aanheffen[randomInt]
       let foutOfFouten = aantalFouten===1 ? "fout" : "fouten"
-      gebruikersMelding = randomAanhef + ". Je hebt nu " + aantalFouten + " " + foutOfFouten + ". Het moest niet" + gevondenWaarde + ", maar " + correcteFizzBuzzWaarde + " zijn."
+      gebruikersMelding = randomAanhef + ". Je hebt nu " + aantalFouten + " " + foutOfFouten + ". Het moest niet " + gevondenWaarde + ", maar " + correcteFizzBuzzWaarde + " zijn."
     }
-    spreek(gebruikersMelding)
-    setTimeout(() => {
-      wisselBeurt()
-      updateSchermWaarden()
+    spreek(gebruikersMelding, () => {
       setTimeout(() => {
-        // TODO Computer ook fouten laten maken (en die apart tellen).
-        const huidigeFizzBuzz = fizzbuzz(huidigeRonde)
-        console.log(huidigeFizzBuzz)
-        spreekEnLuister("Dan zeg ik... " + huidigeFizzBuzz)
         wisselBeurt()
         updateSchermWaarden()
-        spreekEnLuister('Jij bent!')
+
+        // TODO Computer ook fouten laten maken (en die apart tellen).
+        const huidigeFizzBuzz = fizzbuzz(huidigeRonde)
+        spreek("Dan zeg ik... " + huidigeFizzBuzz, () => {
+          wisselBeurt()
+          updateSchermWaarden()
+          luister()
+        })
       }, 1000)
-    }, 1000)
+    })
   }
 }
 

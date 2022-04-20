@@ -1,0 +1,26 @@
+{
+  "name": "fizzbuzz-frontend",
+  "version": "0.1.0",
+  "description": "Dit is de front-end voor FizzBuzz. Het bekende drankspelletje, waarbij je de kring rond gaat en oplopende getallen zegt startend vanaf 1. Maar:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.aimsites.nl/scm/kot/fizzbuzz-kotlin-nutshell-talk.git"
+  },
+  "keywords": [
+    "kotlin",
+    "oose",
+    "speech-recognition",
+    "fizzbuzz",
+    "accessability",
+    "a11y",
+    "project",
+    "han",
+    "aim"
+  ],
+  "author": "Bart van der Wal",
+  "license": "CC0-1.0"
+}
