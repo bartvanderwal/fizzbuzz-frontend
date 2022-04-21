@@ -1,4 +1,4 @@
-## FizzBuzz front-end
+# FizzBuzz front-end
 
 Dit is de front-end voor FizzBuzz. Het bekende drankspelletje, waarbij je de kring rond gaat en oplopende getallen zegt startend vanaf 1.
 Maar:
@@ -29,6 +29,14 @@ Voor ook toegankelijkheid gebruik ik ook Engelse stem 'Xander'. Mogelijk als je 
 
 Hoewel de originele repo aangeeft, dat deze werkt op Chrome en Firefox, test ik deze juist op Safari op mijn macos.
 
+## How to run
+
+Start een server op localhost om de SpeechRecognition het te laten doen, met bijvoorbeeld npm package `http-server`(de `-c-1` parameter is om caching uit te zetten (maar je moet vaak nog steeds ctrl+F5 gebruiken)):
+
+```bash
+npx http-server -c-1 .
+```
+
 ## Attributie
 
 Deze is afgeleid van de [originele `web-speech-api` repository](https://github.com/mdn/web-speech-api) met demos illustrating features of the Web Speech API. See [Web_Speech_API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API) for more details.
@@ -44,12 +52,6 @@ Bus: <https://www.eichertrucksandbuses.com/buses/school-bus/starline>
 Vis: <https://poki.nl/g/fish-eat-fish>
 
 Wie het woord fout zegt moet bijvoorbeeld een drankje drinken. Waardoor je natuurlijk steeds meer fouten gaat maken. Maar: Don't try this at home!
-
-Start een server op localhost om de SpeechRecognition het te laten doen, met bijvoorbeeld npm package `http-server`(de `-c-1` parameter is om caching uit te zetten (maar je moet vaak nog steeds ctrl+F5 gebruiken)):
-
-```bash
-npx http-server -c-1 .
-```
 
 ### TODO
 

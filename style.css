@@ -1,0 +1,18 @@
+body {
+    background-color: antiquewhite;
+}
+
+#huidigeRonde {
+    font-size: 50px;
+    color: darkblue
+}
+
+:has(#huidigeRonde) {
+    font-size: larger;
+    color: blue;
+}
+
+
+#hints {
+    columns: 100px 5;
+}

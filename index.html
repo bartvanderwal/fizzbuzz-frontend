@@ -20,6 +20,7 @@
       <label for="naam">Hoe heet je?</label>
       <input type="naam" id="naam" value="Henk">
       <div>Huidige ronde: <span id="huidigeRonde">1</span></div>
+      <br>
       <div>Aan de beurt: <span id="aanDeBeurt"></span></div>
       <div>Aantal fouten: <span id="aantalFouten">0</span></div>
       <div>Laatst gezegd: <span id="spreek">0</span></div>
@@ -32,7 +33,11 @@
       <p id="output"><em>...diagnostische berichten</em></p>
       <p id="luisterStatus"><em>Ik luister niet</em></p>
     </div>
-    <p id="hints"></p>
+    <section id="mogelijkeWoordenLijst">
+    <div id="words">
+      <p>Klik en zeg een fizzbuzz woord</p>
+      <p id="hints"></p>
+    </div>
     <script src="visbus.js"></script>
   </body>
 </html>

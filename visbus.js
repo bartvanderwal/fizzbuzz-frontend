@@ -64,8 +64,8 @@ function resetSpel() {
 }
 
 // Bron: https://developer.mozilla.org/en-US/docs/web/api/document/readystatechange_event
-document.addEventListener('DOMContentLoaded', (event) => {
-  setTimeout(() => resetSpel(), 1000)
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => resetSpel(), 0)
 })
 
 resetButton.onclick = () => {
@@ -182,9 +182,9 @@ var woordenHTML=''
 fizzBuzzWoorden.forEach(function(woord, index) {
   console.log(woord, index)
   const signaalKleur = isIllegal(woord.waarde) ? 'red' : 'green'
-  woordenHTML += '<div style="color: white; font-weight: bold; background-color:' + signaalKleur + ';"> ' + (woord.naam ? woord.naam : woord.waarde) + ' </div>'
+  woordenHTML += '<div style="background-color: white; font-weight: bold; color:' + signaalKleur + ';"> ' + (woord.naam ? woord.naam : woord.waarde) + ' </div>'
 })
-hints.innerHTML = 'Klik en zeg een fizzbuzz woord: ' + woordenHTML + '.'
+hints.innerHTML = woordenHTML
 
 const luister = () => {
   recognition.start()
